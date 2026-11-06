@@ -1,0 +1,11 @@
+# Django 웹 서비스 (web)
+Django==5.2.6
+Pillow==10.4.0          # ImageField 에 필요
+
+# FastAPI Proxy 서버 (proxy)
+fastapi==0.121.0
+uvicorn==0.38.0
+
+# 공통
+python-dotenv==1.2.1
+requests==2.32.5
