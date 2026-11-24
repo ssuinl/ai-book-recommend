@@ -27,12 +27,15 @@ PROXY_URL = os.getenv('PROXY_URL', 'http://localhost:8081/api/v1')
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-dev-only')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+if not SECRET_KEY:
+    from django.core.exceptions import ImproperlyConfigured
+    raise ImproperlyConfigured('DJANGO_SECRET_KEY must be set in the environment.')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Debug mode is disabled unless explicitly enabled for local development.
+DEBUG = os.getenv('DJANGO_DEBUG', 'False').strip().lower() in {'true', '1', 'yes'}
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [host.strip() for host in os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,[::1]').split(',') if host.strip()]
 
 
 # Application definition
