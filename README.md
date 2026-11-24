@@ -64,6 +64,9 @@ source venv/Scripts/activate
 pip install -r requirements.txt
 cp proxy/.env.example proxy/.env      # GMS_KEY 입력
 cp web/.env.sample web/.env
+# Set DJANGO_SECRET_KEY in web/.env to a unique generated value:
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+# For local development only, set DJANGO_DEBUG=True in web/.env if needed.
 ```
 
 ```bash
